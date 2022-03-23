@@ -1,0 +1,5 @@
+42.0
+appstream-glib
+pkgconfig(enchant-2)
+pkgconfig(gtksourceview-5)
+pkgconfig(libadwaita-1)
