@@ -4,7 +4,7 @@
 #
 Name     : gnome-text-editor
 Version  : 43.0
-Release  : 5
+Release  : 6
 URL      : https://download.gnome.org/sources/gnome-text-editor/43/gnome-text-editor-43.0.tar.xz
 Source0  : https://download.gnome.org/sources/gnome-text-editor/43/gnome-text-editor-43.0.tar.xz
 Summary  : No detailed summary available
