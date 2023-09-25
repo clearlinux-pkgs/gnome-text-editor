@@ -1,3 +1,27 @@
+# Text Editor 45.0
+
+ • Fix tab closing while documents are loading
+ • Shortcuts are removed from tooltips to match GNOME behavior. They continue
+   to be available in the shortcuts window.
+ • Focus fixes for the language selection dialog making keyboard use more
+   accessible.
+ • You can now set defaults for "Plain Text" in the language dialog.
+ • Improved search filtering in the Open popover.
+
+# Text Editor 45.alpha
+
+ • Remove keyboard shortcuts from tooltips
+ • Fix initial focus of language selection dialog
+ • Allow setting "Plain Text" in language selection dialog
+
+# Text Editor 45.alpha
+
+ • Styling improvements to match recent libadwaita changes
+ • Fixes for various settings in per-tab overrides
+ • Various Windows build system improvements
+ • Style scheme metadata fixes for light/dark mode
+ • Translation updates
+
 # Text Editor 44.0
 
  • Improve spellcheck word boundaries

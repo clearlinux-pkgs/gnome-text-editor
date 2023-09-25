@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : gnome-text-editor
-Version  : 44.0
-Release  : 14
-URL      : https://download.gnome.org/sources/gnome-text-editor/44/gnome-text-editor-44.0.tar.xz
-Source0  : https://download.gnome.org/sources/gnome-text-editor/44/gnome-text-editor-44.0.tar.xz
+Version  : 45.0
+Release  : 15
+URL      : https://download.gnome.org/sources/gnome-text-editor/45/gnome-text-editor-45.0.tar.xz
+Source0  : https://download.gnome.org/sources/gnome-text-editor/45/gnome-text-editor-45.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
@@ -75,25 +75,30 @@ locales components for the gnome-text-editor package.
 
 
 %prep
-%setup -q -n gnome-text-editor-44.0
-cd %{_builddir}/gnome-text-editor-44.0
+%setup -q -n gnome-text-editor-45.0
+cd %{_builddir}/gnome-text-editor-45.0
+pushd ..
+cp -a gnome-text-editor-45.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680031190
+export SOURCE_DATE_EPOCH=1695684416
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
 
 %check
 export LANG=C.UTF-8
@@ -105,14 +110,17 @@ meson test -C builddir --print-errorlogs || :
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gnome-text-editor
 cp %{_builddir}/gnome-text-editor-%{version}/COPYING %{buildroot}/usr/share/package-licenses/gnome-text-editor/338650eb7a42dd9bc1f1c6961420f2633b24932d || :
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gnome-text-editor
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/gnome-text-editor
 /usr/bin/gnome-text-editor
 
 %files data
