@@ -1,5 +1,4 @@
-45.3
-appstream-glib
+46.0
 pkgconfig(editorconfig)
 pkgconfig(enchant-2)
 pkgconfig(gtksourceview-5)
