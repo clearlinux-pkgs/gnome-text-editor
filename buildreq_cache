@@ -1,5 +1,5 @@
-46.3
+47.0
 pkgconfig(editorconfig)
-pkgconfig(enchant-2)
 pkgconfig(gtksourceview-5)
 pkgconfig(libadwaita-1)
+pkgconfig(libspelling-1)
